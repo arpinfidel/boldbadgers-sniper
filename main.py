@@ -15,6 +15,8 @@ import pickle
 from dotenv import load_dotenv
 load_dotenv()
 
+delay = float(os.getenv('DELAY'))
+
 client = Client('starting...', channel_name='badger-bot')
 
 def send_alarm(b: Badger, next: Optional[Badger]=None, channel='badger-bot'):
@@ -84,7 +86,8 @@ def start():
 				sent.add((b.id, b.seller_address))
 				with open('sent.pkl', 'wb') as f:
 					pickle.dump(sent, f)
-		
+		time.sleep(delay)
+
 t = threading.Thread(name='', target=start)
 t.setDaemon(True)
 t.start()
